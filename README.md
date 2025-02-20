@@ -1,4 +1,4 @@
-https://github.com/OWNER/REPOSITORY/actions/workflows/project6/badge.svg
+https://github.com/ipsamitt/HW6-HMM/actions/workflows/project6/badge.svg
 
 # HW6-HMM
 
