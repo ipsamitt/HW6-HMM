@@ -1,3 +1,5 @@
+https://github.com/OWNER/REPOSITORY/actions/workflows/project6/badge.svg
+
 # HW6-HMM
 
 In this assignment, you'll implement the Forward and Viterbi Algorithms (dynamic programming). 
