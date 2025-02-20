@@ -1,5 +1,4 @@
-https://github.com/ipsamitt/HW6-HMM/actions/workflows/project6/badge.svg
-
+[![project6](https://github.com/ipsamitt/HW6-HMM/actions/workflows/main.yml/badge.svg)](https://github.com/ipsamitt/HW6-HMM/actions/workflows/main.yml)
 # HW6-HMM
 
 In this assignment, you'll implement the Forward and Viterbi Algorithms (dynamic programming). 
