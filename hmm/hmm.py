@@ -42,19 +42,30 @@ class HiddenMarkovModel:
         N = len(self.hidden_states)
         T = len(input_observation_states)
         
-        alpha = np.zeros((T, N))
+                
+        # edge case if there are no observation states
+        if T == 0:
+            return 1
         
+        #probability matrix 
+        forward_prob = np.zeros((T, N))
+
         # Initialization step
         for i in range(N):
-            alpha[0, i] = self.prior_p[i] * self.emission_p[i, self.observation_states_dict[input_observation_states[0]]]
+            forward_prob[0, i] = self.prior_p[i] * self.emission_p[i, self.observation_states_dict[input_observation_states[0]]]
         
+        # edge case of what if the observation states is only one state long        
+        if T == 1:
+            return np.sum(forward_prob[0,:])
         # Induction step
+       
         for t in range(1, T):
             for j in range(N):
-                alpha[t, j] = np.sum(alpha[t-1, :] * self.transition_p[:, j]) * self.emission_p[j, self.observation_states_dict[input_observation_states[t]]]
-        
+                forward_prob[t, j] = np.sum(forward_prob[t-1, :] * self.transition_p[:, j]) * self.emission_p[j, self.observation_states_dict[input_observation_states[t]]]
+        print(forward_prob)
+
         # Termination step
-        forward_probability = np.sum(alpha[T-1, :])
+        forward_probability = np.sum(forward_prob[T-1, :])
         return forward_probability
 
 
@@ -75,6 +86,9 @@ class HiddenMarkovModel:
         T = len(decode_observation_states)
         viterbi_table = np.zeros((T, N))
         best_path = np.zeros((T, N), dtype=int)
+        
+        if T == 0:
+            return []
         
         for i in range(N):
             viterbi_table[0, i] = self.prior_p[i] * self.emission_p[i, self.observation_states_dict[decode_observation_states[0]]]
@@ -97,15 +111,24 @@ class HiddenMarkovModel:
         # Step 4. Return best hidden state sequence 
         return [self.hidden_states_dict[state] for state in best_hidden_state_sequence]
 
+
 mini_hmm=np.load('./data/mini_weather_hmm.npz')
 mini_input=np.load('./data/mini_weather_sequences.npz')
 
-print(mini_input.files)
+
 hmm = HiddenMarkovModel(mini_hmm['observation_states'], mini_hmm['hidden_states'], mini_hmm['prior_p'], mini_hmm['transition_p'], mini_hmm['emission_p'])
 
-forward = hmm.forward(mini_input['observation_state_sequence'])
-viterbi = hmm.viterbi(mini_input['observation_state_sequence'])
+print(mini_input['observation_state_sequence'])
+
+
+input_obs = []
+forward = hmm.forward(input_obs)
+viterbi = hmm.viterbi(input_obs)
+
+print(mini_input['observation_state_sequence'])
 
 print(forward)
 print(viterbi)
 print(mini_input['best_hidden_state_sequence'])
+
+
