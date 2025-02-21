@@ -28,22 +28,28 @@ def test_mini_weather():
 
     pytest.approx(0.03506, forward)
 
-    assert((viterbi == mini_input['best_hidden_state_sequence']).all())
+    assert np.array_equal(viterbi, mini_input['best_hidden_state_sequence']) 
 
-
-    #Edge case 1: There are no observation states in the input
+    # Edge case 1: No observation states in the input
     input_obs = []
     edge1_forward = hmm.forward(input_obs)
     edge1_viterbi = hmm.viterbi(input_obs)
-    assert(1 == edge1_forward)
-    assert(([] == edge1_viterbi).all())
+    assert edge1_forward == 1
+    assert np.array_equal(edge1_viterbi, []) 
 
+    # Edge case 2: One observation state in the input
+    input_obs = ['sunny']
+    edge2_forward = hmm.forward(input_obs)
+    edge2_viterbi = hmm.viterbi(input_obs)
+    assert edge2_forward == 0.45
+    assert np.array_equal(edge2_viterbi, ['hot']) 
 
-    
-   
-    
-
-
+    # Edge case 3: Probabilities are 1 and 0
+    input_obs = ['sunny']
+    edge3_forward = hmm.forward(input_obs)
+    edge3_viterbi = hmm.viterbi(input_obs)
+    assert edge3_forward == 0.45
+    assert np.array_equal(edge3_viterbi, ['hot']) 
 
 def test_full_weather():
 

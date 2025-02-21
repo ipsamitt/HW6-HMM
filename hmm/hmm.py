@@ -118,17 +118,11 @@ mini_input=np.load('./data/mini_weather_sequences.npz')
 
 hmm = HiddenMarkovModel(mini_hmm['observation_states'], mini_hmm['hidden_states'], mini_hmm['prior_p'], mini_hmm['transition_p'], mini_hmm['emission_p'])
 
-print(mini_input['observation_state_sequence'])
 
 
-input_obs = []
+input_obs = ['sunny']
 forward = hmm.forward(input_obs)
 viterbi = hmm.viterbi(input_obs)
 
-print(mini_input['observation_state_sequence'])
-
 print(forward)
 print(viterbi)
-print(mini_input['best_hidden_state_sequence'])
-
-
