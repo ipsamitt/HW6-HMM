@@ -57,12 +57,11 @@ class HiddenMarkovModel:
         # edge case of what if the observation states is only one state long        
         if T == 1:
             return np.sum(forward_prob[0,:])
-        # Induction step
        
+        # Induction step   
         for t in range(1, T):
             for j in range(N):
                 forward_prob[t, j] = np.sum(forward_prob[t-1, :] * self.transition_p[:, j]) * self.emission_p[j, self.observation_states_dict[input_observation_states[t]]]
-        print(forward_prob)
 
         # Termination step
         forward_probability = np.sum(forward_prob[T-1, :])
@@ -87,6 +86,7 @@ class HiddenMarkovModel:
         viterbi_table = np.zeros((T, N))
         best_path = np.zeros((T, N), dtype=int)
         
+        #edge case what if there's no obs
         if T == 0:
             return []
         
@@ -110,19 +110,3 @@ class HiddenMarkovModel:
         
         # Step 4. Return best hidden state sequence 
         return [self.hidden_states_dict[state] for state in best_hidden_state_sequence]
-
-
-mini_hmm=np.load('./data/mini_weather_hmm.npz')
-mini_input=np.load('./data/mini_weather_sequences.npz')
-
-
-hmm = HiddenMarkovModel(mini_hmm['observation_states'], mini_hmm['hidden_states'], mini_hmm['prior_p'], mini_hmm['transition_p'], mini_hmm['emission_p'])
-
-
-
-input_obs = ['sunny']
-forward = hmm.forward(input_obs)
-viterbi = hmm.viterbi(input_obs)
-
-print(forward)
-print(viterbi)

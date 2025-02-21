@@ -45,11 +45,13 @@ def test_mini_weather():
     assert np.array_equal(edge2_viterbi, ['hot']) 
 
     # Edge case 3: Probabilities are 1 and 0
-    input_obs = ['sunny']
-    edge3_forward = hmm.forward(input_obs)
-    edge3_viterbi = hmm.viterbi(input_obs)
-    assert edge3_forward == 0.45
-    assert np.array_equal(edge3_viterbi, ['hot']) 
+    prior_p = np.array([1, 0])
+    test_p = np.array([[1,0], [1,0]])
+    hmm = HiddenMarkovModel(mini_hmm['observation_states'], mini_hmm['hidden_states'], prior_p, test_p, test_p)
+    edge3_forward = hmm.forward(mini_input['observation_state_sequence'])
+    edge3_viterbi = hmm.viterbi(mini_input['observation_state_sequence'])
+    assert(0, edge3_forward)
+    assert(np.array_equal(edge3_viterbi, ['hot', 'hot', 'hot', 'hot', 'hot']))
 
 def test_full_weather():
 

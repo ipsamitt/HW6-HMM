@@ -6,6 +6,11 @@ In this assignment, you'll implement the Forward and Viterbi Algorithms (dynamic
 
 # Assignment
 
+## Methods Description
+The forward algorithm of an HMM computes the probability of the observed states. This algorithm iterates through the list of states within the input and updates the probability matrix by summing over all the potential previous states by applying transition and emission probabilities. It returns the sum of the final column of the matrix as the joint probability of the input observations.
+
+The Viterbi algorithm finds the most likely sequence of hidden states that could have created the input observation states to decode the observation states and find the most probable underlying path.
+
 ## Overview 
 
 The goal of this assignment is to implement the Forward and Viterbi Algorithms for Hidden Markov Models (HMMs).
@@ -50,17 +55,17 @@ Finally, please update your README with a brief description of your methods.
 ## Task List
 
 [TODO] Complete the HiddenMarkovModel Class methods  <br>
-  [ ] complete the `forward` function in the HiddenMarkovModelClass <br>
-  [ ] complete the `viterbi` function in the HiddenMarkovModelClass <br>
+  [X] complete the `forward` function in the HiddenMarkovModelClass <br>
+  [X] complete the `viterbi` function in the HiddenMarkovModelClass <br>
 
 [TODO] Unit Testing  <br>
-  [ ] Ensure functionality on mini and full weather dataset <br>
-  [ ] Account for edge cases 
+  [X] Ensure functionality on mini and full weather dataset <br>
+  [X] Account for edge cases 
 
 [TODO] Packaging <br>
-  [ ] Update README with description of your methods <br>
-  [ ] pip installable module (optional)<br>
-  [ ] github actions (install + pytest) (optional)
+  [X] Update README with description of your methods <br>
+  [X] pip installable module (optional)<br>
+  [X] github actions (install + pytest) (optional)
 
 
 ## Completing the Assignment 
