@@ -28,7 +28,7 @@ def test_mini_weather():
 
     pytest.approx(0.03506, forward)
 
-    assert(viterbi == mini_input['best_hidden_state_sequence']).all()
+    assert((viterbi == mini_input['best_hidden_state_sequence']).all())
 
 
     #Edge case 1: There are no observation states in the input
@@ -36,7 +36,7 @@ def test_mini_weather():
     edge1_forward = hmm.forward(input_obs)
     edge1_viterbi = hmm.viterbi(input_obs)
     assert(1 == edge1_forward)
-    assert([] == edge1_viterbi).all()
+    assert(([] == edge1_viterbi).all())
 
 
     
